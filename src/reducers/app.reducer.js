@@ -24,6 +24,14 @@ function translateCoords(subSteps) {
             };
         }
 
+        if (step.type === polygons.TYPE_ANGLE_RIGHT) {
+            return {
+                ...step,
+                centre: translatePoint(step.centre),
+                radius: step.radius * polygons.GRAPH_WIDTH / graphMaxXRange
+            };
+        }
+
         return step;
     });
 }
