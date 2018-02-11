@@ -1,22 +1,23 @@
-import * as polygons from '../constants/polygons';
+import * as graph from '../constants/graph';
+import { POLYGONS } from '../constants/polygons';
 
 const graphMaxXRange = 20;
-const graphMaxYRange = graphMaxXRange * polygons.GRAPH_HEIGHT / polygons.GRAPH_WIDTH;
+const graphMaxYRange = graphMaxXRange * graph.GRAPH_HEIGHT / graph.GRAPH_WIDTH;
 
 function translatePoint(point) {
     const [x1, y1] = point;
 
     // assume that the origin is in the middle
 
-    const x2 = polygons.GRAPH_WIDTH * 0.5 * (1 + x1 / graphMaxXRange);
-    const y2 = polygons.GRAPH_HEIGHT * 0.5 * (1 - y1 / graphMaxYRange);
+    const x2 = graph.GRAPH_WIDTH * 0.5 * (1 + x1 / graphMaxXRange);
+    const y2 = graph.GRAPH_HEIGHT * 0.5 * (1 - y1 / graphMaxYRange);
 
     return [x2, y2].map(value => Math.floor(value) + 0.5);
 }
 
 function translateCoords(subSteps) {
     return subSteps.map(step => {
-        if (step.type === polygons.TYPE_LINE) {
+        if (step.type === graph.TYPE_LINE) {
             return {
                 ...step,
                 from: translatePoint(step.from),
@@ -24,18 +25,18 @@ function translateCoords(subSteps) {
             };
         }
 
-        if (step.type === polygons.TYPE_POINT) {
+        if (step.type === graph.TYPE_POINT) {
             return {
                 ...step,
                 at: translatePoint(step.at)
             };
         }
 
-        if (step.type === polygons.TYPE_ANGLE_RIGHT || step.type === polygons.TYPE_CIRCLE) {
+        if (step.type === graph.TYPE_ANGLE_RIGHT || step.type === graph.TYPE_CIRCLE) {
             return {
                 ...step,
                 centre: translatePoint(step.centre),
-                radius: step.radius * polygons.GRAPH_WIDTH / 2 / graphMaxXRange
+                radius: step.radius * graph.GRAPH_WIDTH / 2 / graphMaxXRange
             };
         }
 
@@ -68,7 +69,7 @@ export function onInitDraw(state, { match }) {
 
     const { params: { polygon: polygonName } } = match;
 
-    const polygonDef = polygons.POLYGONS.find(({ name }) => name === polygonName);
+    const polygonDef = POLYGONS.find(({ name }) => name === polygonName);
 
     if (!polygonDef) {
         return resetState;

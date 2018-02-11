@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     TYPE_LINE, TYPE_POINT, TYPE_CIRCLE, TYPE_ANGLE_RIGHT
-} from '../../constants/polygons';
+} from '../../constants/graph';
 import GraphStepLine from './line';
 import GraphStepPoint from './point';
 import GraphStepCircle from './circle';
 import GraphStepAngleRight from './angleRight';
 
-export default function GraphStep({ type, ...step }) {
+export default function GraphStep({ current, stepIndex, type, ...step }) {
     const lineProps = {
         stroke: '#666',
         fill: 'none',
@@ -34,13 +34,22 @@ export default function GraphStep({ type, ...step }) {
     }
 
     if (type === TYPE_ANGLE_RIGHT) {
-        return <GraphStepAngleRight {...step} lineProps={linePropsSketch} />;
+        return (
+            <GraphStepAngleRight
+                current={current}
+                stepIndex={stepIndex}
+                lineProps={linePropsSketch}
+                {...step}
+            />
+        );
     }
 
     return null;
 }
 
 GraphStep.propTypes = {
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    current: PropTypes.bool.isRequired,
+    stepIndex: PropTypes.number.isRequired
 };
 

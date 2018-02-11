@@ -25,7 +25,9 @@ function genTestArc(centreX, centreY, radius, start, testArcSweep = 0.3) {
     return pathDef.join(' ');
 }
 
-export default function GraphStepAngleRight({ centre, radius, start, direction, lineProps }) {
+export default function GraphStepAngleRight(props) {
+    const { current, stepIndex, centre, radius, start, direction, lineProps } = props;
+
     const [centreX, centreY] = centre;
 
     const pointRight = [
@@ -38,7 +40,7 @@ export default function GraphStepAngleRight({ centre, radius, start, direction, 
         centreY - radius * Math.sin(direction * 2 * Math.PI / 3)
     ];
 
-    const testArcs = [
+    let testArcs = [
         genTestArc(centreX, centreY, radius, start),
         genTestArc(centreX, centreY, radius, start - direction * Math.PI / 3),
         genTestArc(centreX + radius, centreY, radius, start - direction * 2 * Math.PI / 3),
@@ -46,12 +48,17 @@ export default function GraphStepAngleRight({ centre, radius, start, direction, 
         genTestArc(centreX, centreY, radius, start - direction * 2 * Math.PI / 3),
         genTestArc(...pointLeft, radius, -direction * Math.PI / 3),
         genTestArc(...pointRight, radius, -direction * 2 * Math.PI / 3)
-    ]
-        .map((arc, key) => <path key={key} d={arc} {...lineProps} />);
+    ];
+
+    if (current) {
+        testArcs = testArcs.slice(0, stepIndex + 1);
+    }
+
+    const paths = testArcs.map((arc, key) => <path key={key} d={arc} {...lineProps} />);
 
     return (
         <g>
-            {testArcs}
+            {paths}
         </g>
     );
 }
@@ -61,6 +68,8 @@ GraphStepAngleRight.propTypes = {
     radius: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     direction: PropTypes.number.isRequired,
-    lineProps: PropTypes.object.isRequired
+    lineProps: PropTypes.object.isRequired,
+    current: PropTypes.bool.isRequired,
+    stepIndex: PropTypes.number.isRequired
 };
 
