@@ -56,7 +56,9 @@ function registerServer(app) {
     app.set('views', path.join(__dirname, '../src/templates'));
     app.set('view engine', 'ejs');
 
-    app.get('/', (req, res) => {
+    app.use(express.static(path.join(__dirname, '../static')));
+
+    app.get('/*', (req, res) => {
         const externalStyles = req.query.prod || process.env.NODE_ENV !== 'development';
 
         res.render('index', {
@@ -68,8 +70,6 @@ function registerServer(app) {
             }
         });
     });
-
-    app.use(express.static(path.join(__dirname, '../static')));
 
     // put your API endpoints here (e.g. include an Express router from another file)
     app.use(bodyParser.json());
