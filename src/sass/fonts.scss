@@ -1,0 +1,18 @@
+/**
+ * This is an example, you should modify this with whatever custom fonts you wish to include
+ */
+
+/**
+@font-face {
+    font-family: CustomFont;
+    src: url('../fonts/CustomFont.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+// this is needed in order to fool the webpack loader that the fonts are actually used
+.font-custom-font {
+    font-family: CustomFont;
+}
+*/
+

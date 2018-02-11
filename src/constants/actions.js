@@ -1,0 +1,3 @@
+export const BUTTON_CLICKED = 'BUTTON_CLICKED';
+export const INPUT_CHANGED = 'INPUT_CHANGED';
+

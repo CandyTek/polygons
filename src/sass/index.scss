@@ -1,0 +1,41 @@
+@import './variables.scss';
+@import './animation.scss';
+@import './mixins.scss';
+@import '~sprite.scss';
+
+@import '../components/**/style.scss';
+@import '../containers/**/style.scss';
+
+@media
+    only screen and (orientation: landscape) and (min-height: $mobileLH + px),
+    only screen and (orientation: portrait) and (min-width: $mobileLH + px) {
+   
+    @import '../components/**/style.desktop.scss';
+    @import '../containers/**/style.desktop.scss';
+}
+
+@media
+    only screen and (max-width: $mobileLW + px) and (max-height: $mobileLH + px),
+    only screen and (max-height: $mobileLW + px) and (max-width: $mobileLH + px) {
+
+    @import '../components/**/style.mobile.scss';
+    @import '../containers/**/style.mobile.scss';
+
+    @media
+        (orientation: landscape) and (max-width: $mobileSW + px),
+        (orientation: portrait) and (max-width: $mobileSH + px) {
+
+        @import '../components/**/style.mobile.small.scss';
+        @import '../containers/**/style.mobile.small.scss';
+    }
+
+    @media (orientation: landscape) {
+        @import '../components/**/style.mobile.landscape.scss';
+        @import '../containers/**/style.mobile.landscape.scss';
+    }
+
+    @media (orientation: portrait) {
+        @import '../components/**/style.mobile.portrait.scss';
+        @import '../containers/**/style.mobile.portrait.scss';
+    }
+}
