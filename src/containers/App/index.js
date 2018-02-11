@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import Header from '../../components/Header';
 import PolygonChooser from '../../components/PolygonChooser';
-import DrawOuter from '../../components/DrawOuter';
+import DrawOuter from '../DrawOuter';
 
 function App({ appVersion }) {
     const className = classNames('polygons-app', `version-${appVersion}`);

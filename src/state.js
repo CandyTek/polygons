@@ -5,6 +5,8 @@
 /* global APP_VERSION */
 
 export default {
-    appVersion: APP_VERSION || '0.0.0'
+    appVersion: APP_VERSION || '0.0.0',
+    polygon: null,
+    step: null
 };
 

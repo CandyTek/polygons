@@ -1,1 +1,2 @@
+export const DRAW_INIT_LOADED = 'DRAW_INIT_LOADED';
 
