@@ -6,24 +6,23 @@ export default function DrawTitle({ polygon, step, onStepNavigation }) {
 
     const { name: stepName } = steps[step];
 
-    let nextStepLink = null;
-    let prevStepLink = null;
+    const nextStepLink = (
+        <button
+            className="nav-link-next-step"
+            onClick={onStepNavigation(1)}
+            disabled={step >= steps.length - 1}>
+            {'Next'}
+        </button>
+    );
 
-    if (step < steps.length - 1) {
-        nextStepLink = (
-            <button className="nav-link-next-step" onClick={onStepNavigation(1)}>
-                {'Next'}
-            </button>
-        );
-    }
-
-    if (step > 0) {
-        prevStepLink = (
-            <button className="nav-link-prev-step" onClick={onStepNavigation(-1)}>
-                {'Previous'}
-            </button>
-        );
-    }
+    const prevStepLink = (
+        <button
+            className="nav-link-prev-step"
+            onClick={onStepNavigation(-1)}
+            disabled={step <= 0}>
+            {'Previous'}
+        </button>
+    );
 
     return (
         <div className="draw-title-outer">
