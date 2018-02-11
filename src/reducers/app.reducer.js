@@ -1,7 +1,7 @@
 import * as graph from '../constants/graph';
 import { POLYGONS } from '../constants/polygons';
 
-const graphMaxXRange = 20;
+const graphMaxXRange = 1000;
 const graphMaxYRange = graphMaxXRange * graph.GRAPH_HEIGHT / graph.GRAPH_WIDTH;
 
 function translatePoint(point) {
@@ -37,6 +37,15 @@ function translateCoords(subSteps) {
                 ...step,
                 centre: translatePoint(step.centre),
                 radius: step.radius * graph.GRAPH_WIDTH / 2 / graphMaxXRange
+            };
+        }
+
+        if (step.type === graph.TYPE_BISECT) {
+            return {
+                ...step,
+                pointA: translatePoint(step.pointA),
+                pointB: translatePoint(step.pointB),
+                pointC: translatePoint(step.pointC)
             };
         }
 
