@@ -66,13 +66,11 @@ export function onInitDraw(state, { match }) {
         return resetState;
     }
 
-    const { params: { polygon: polygonName, step: stepRaw } } = match;
-
-    const step = Number(stepRaw) || 0;
+    const { params: { polygon: polygonName } } = match;
 
     const polygonDef = polygons.POLYGONS.find(({ name }) => name === polygonName);
 
-    if (!(polygonDef && step >= 0 && step < polygonDef.steps.length)) {
+    if (!polygonDef) {
         return resetState;
     }
 
@@ -81,7 +79,21 @@ export function onInitDraw(state, { match }) {
     return ({
         ...state,
         polygon,
-        step
+        step: 0
     });
+}
+
+export function onStepNavigated(state, { direction }) {
+    if (state.step === null || !(state.polygon &&
+        state.polygon.steps.length > state.step + direction &&
+        state.step + direction >= 0)
+    ) {
+        return state;
+    }
+
+    return {
+        ...state,
+        step: state.step + direction
+    };
 }
 
