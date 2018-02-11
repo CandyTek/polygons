@@ -17,7 +17,7 @@ function translatePoint(point) {
 
 function translateCoords(subSteps) {
     return subSteps.map(step => {
-        if (step.type === graph.TYPE_LINE) {
+        if (step.type === graph.TYPE_LINE || step.type === graph.TYPE_DIVIDE_LINE) {
             return {
                 ...step,
                 from: translatePoint(step.from),

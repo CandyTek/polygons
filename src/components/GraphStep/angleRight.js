@@ -1,29 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-function genTestArc(centreX, centreY, radius, start, testArcSweep = 0.3) {
-    const startX = centreX + radius * Math.cos(start - testArcSweep);
-    const startY = centreY + radius * Math.sin(start - testArcSweep);
-
-    const finalX = centreX + radius * Math.cos(start + testArcSweep);
-    const finalY = centreY + radius * Math.sin(start + testArcSweep);
-
-    const pathDef = [
-        'M',
-        startX,
-        startY,
-        'A',
-        radius,
-        radius,
-        start,
-        0,
-        1,
-        finalX,
-        finalY
-    ];
-
-    return pathDef.join(' ');
-}
+import { genTestArc } from './testArc';
 
 export default function GraphStepAngleRight(props) {
     const { current, stepIndex, centre, radius, start, direction, lineProps } = props;

@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    TYPE_LINE, TYPE_POINT, TYPE_CIRCLE, TYPE_ANGLE_RIGHT
+    TYPE_LINE, TYPE_POINT, TYPE_CIRCLE, TYPE_ANGLE_RIGHT, TYPE_DIVIDE_LINE
 } from '../../constants/graph';
 import GraphStepLine from './line';
 import GraphStepPoint from './point';
 import GraphStepCircle from './circle';
 import GraphStepAngleRight from './angleRight';
+import GraphStepDivideLine from './divideLine';
 
 export default function GraphStep({ current, stepIndex, type, ...step }) {
     const lineProps = {
@@ -36,6 +37,17 @@ export default function GraphStep({ current, stepIndex, type, ...step }) {
     if (type === TYPE_ANGLE_RIGHT) {
         return (
             <GraphStepAngleRight
+                current={current}
+                stepIndex={stepIndex}
+                lineProps={linePropsSketch}
+                {...step}
+            />
+        );
+    }
+
+    if (type === TYPE_DIVIDE_LINE) {
+        return (
+            <GraphStepDivideLine
                 current={current}
                 stepIndex={stepIndex}
                 lineProps={linePropsSketch}

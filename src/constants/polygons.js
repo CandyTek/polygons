@@ -1,4 +1,6 @@
-import { TYPE_LINE, TYPE_POINT, TYPE_CIRCLE, TYPE_ANGLE_RIGHT } from './graph';
+import {
+    TYPE_LINE, TYPE_POINT, TYPE_CIRCLE, TYPE_ANGLE_RIGHT, TYPE_DIVIDE_LINE
+} from './graph';
 
 export const POLYGONS = [
     {
@@ -43,6 +45,41 @@ export const POLYGONS = [
                         type: TYPE_LINE,
                         from: [0, 20],
                         to: [0, -20]
+                    },
+                    {
+                        id: '7-gon-A',
+                        type: TYPE_POINT,
+                        name: 'A',
+                        at: [0, 18]
+                    }
+                ]
+            },
+            {
+                name: 'Find B and C',
+                subSteps: [
+                    {
+                        id: '7-gon-V',
+                        type: TYPE_POINT,
+                        name: 'V',
+                        at: [18, 0]
+                    },
+                    {
+                        id: '7-gon-divide-OA',
+                        type: TYPE_DIVIDE_LINE,
+                        from: [0, 0],
+                        to: [0, 18]
+                    },
+                    {
+                        id: '7-gon-quarter-OA',
+                        type: TYPE_DIVIDE_LINE,
+                        from: [0, 0],
+                        to: [0, 9]
+                    },
+                    {
+                        id: '7-gon-B',
+                        type: TYPE_POINT,
+                        name: 'B',
+                        at: [0, 4.5]
                     }
                 ]
             }
