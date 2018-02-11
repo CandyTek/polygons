@@ -15,6 +15,12 @@ export const POLYGONS = [
                         type: TYPE_LINE,
                         from: [-20, 0],
                         to: [20, 0]
+                    },
+                    {
+                        id: '7-gon-y-axis',
+                        type: TYPE_LINE,
+                        from: [0, 20],
+                        to: [0, -20]
                     }
                 ]
             }
