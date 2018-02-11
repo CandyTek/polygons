@@ -24,6 +24,13 @@ function translateCoords(subSteps) {
             };
         }
 
+        if (step.type === polygons.TYPE_POINT) {
+            return {
+                ...step,
+                at: translatePoint(step.at)
+            };
+        }
+
         if (step.type === polygons.TYPE_ANGLE_RIGHT || step.type === polygons.TYPE_CIRCLE) {
             return {
                 ...step,

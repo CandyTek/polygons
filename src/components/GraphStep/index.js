@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TYPE_LINE, TYPE_CIRCLE, TYPE_ANGLE_RIGHT } from '../../constants/polygons';
+import {
+    TYPE_LINE, TYPE_POINT, TYPE_CIRCLE, TYPE_ANGLE_RIGHT
+} from '../../constants/polygons';
 import GraphStepLine from './line';
+import GraphStepPoint from './point';
 import GraphStepCircle from './circle';
 import GraphStepAngleRight from './angleRight';
 
@@ -20,6 +23,10 @@ export default function GraphStep({ type, ...step }) {
 
     if (type === TYPE_LINE) {
         return <GraphStepLine {...step} lineProps={lineProps} />;
+    }
+
+    if (type === TYPE_POINT) {
+        return <GraphStepPoint {...step} />;
     }
 
     if (type === TYPE_CIRCLE) {
