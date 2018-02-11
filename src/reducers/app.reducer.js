@@ -15,6 +15,10 @@ function translatePoint(point) {
     return [x2, y2].map(value => Math.floor(value) + 0.5);
 }
 
+function translateDistance(distance) {
+    return distance * graph.GRAPH_WIDTH / 2 / graphMaxXRange;
+}
+
 function translateCoords(subSteps) {
     return subSteps.map(step => {
         if (step.type === graph.TYPE_LINE || step.type === graph.TYPE_DIVIDE_LINE) {
@@ -32,11 +36,19 @@ function translateCoords(subSteps) {
             };
         }
 
+        if (step.type === graph.TYPE_TEST_ARC) {
+            return {
+                ...step,
+                centre: translatePoint(step.centre),
+                radius: translateDistance(step.radius)
+            };
+        }
+
         if (step.type === graph.TYPE_ANGLE_RIGHT || step.type === graph.TYPE_CIRCLE) {
             return {
                 ...step,
                 centre: translatePoint(step.centre),
-                radius: step.radius * graph.GRAPH_WIDTH / 2 / graphMaxXRange
+                radius: translateDistance(step.radius)
             };
         }
 
