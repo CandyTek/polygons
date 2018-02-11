@@ -24,11 +24,11 @@ function translateCoords(subSteps) {
             };
         }
 
-        if (step.type === polygons.TYPE_ANGLE_RIGHT) {
+        if (step.type === polygons.TYPE_ANGLE_RIGHT || step.type === polygons.TYPE_CIRCLE) {
             return {
                 ...step,
                 centre: translatePoint(step.centre),
-                radius: step.radius * polygons.GRAPH_WIDTH / graphMaxXRange
+                radius: step.radius * polygons.GRAPH_WIDTH / 2 / graphMaxXRange
             };
         }
 
