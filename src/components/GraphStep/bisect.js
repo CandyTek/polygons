@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { GRAPH_WIDTH } from '../../constants/graph';
 import { genTestArc } from './testArc';
 import GraphStepLine from './line';
 
@@ -9,10 +10,7 @@ export default function GraphStepBisect({ current, stepIndex, pointA, pointB, po
         <GraphStepLine key="line2" from={pointB} to={pointC} lineProps={lineProps} />
     ];
 
-    const testLength = (
-        Math.sqrt((pointA[0] - pointB[0]) ** 2 + (pointA[1] - pointB[1]) ** 2) +
-        Math.sqrt((pointC[0] - pointB[0]) ** 2 + (pointC[1] - pointB[1]) ** 2)
-    ) / 3;
+    const testLength = GRAPH_WIDTH * 0.15;
 
     const angleA = Math.atan2(pointA[1] - pointB[1], pointA[0] - pointB[0]);
     const angleC = Math.atan2(pointC[1] - pointB[1], pointC[0] - pointB[0]);
@@ -28,16 +26,16 @@ export default function GraphStepBisect({ current, stepIndex, pointA, pointB, po
     ];
 
     const arcs = [
-        genTestArc(...pointB, testLength, angleA, 0.2),
-        genTestArc(...pointB, testLength, angleC, 0.2),
-        genTestArc(...testPointA, testLength, angleC),
-        genTestArc(...testPointC, testLength, angleA)
+        genTestArc(...pointB, testLength, angleA, 0.1),
+        genTestArc(...pointB, testLength, angleC, 0.1),
+        genTestArc(...testPointA, testLength, angleC, 0.15),
+        genTestArc(...testPointC, testLength, angleA, 0.15)
     ]
         .map((arc, key) => <path key={key} d={arc} {...lineProps} />);
 
     const bisectAngle = (angleA + angleC) / 2;
 
-    const bisectLineLength = testLength * Math.sqrt(
+    const bisectLineLength = testLength * 1.1 * Math.sqrt(
         2 * (1 + Math.cos(angleA - angleC))
     );
 
