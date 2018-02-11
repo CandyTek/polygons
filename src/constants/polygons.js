@@ -8,6 +8,7 @@ export const POLYGONS = [
                 name: 'Axes',
                 subSteps: [
                     {
+                        id: '7-gon-x-axis',
                         type: TYPE_LINE,
                         from: [-20, 0],
                         to: [20, 0]

@@ -3,6 +3,7 @@ import { drawInitLoaded } from '../../actions/app.actions';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DrawTitle from '../../components/DrawTitle';
+import DrawGraph from '../../components/DrawGraph';
 
 class DrawOuter extends Component {
     componentDidMount() {
@@ -18,6 +19,7 @@ class DrawOuter extends Component {
         return (
             <div className="draw-outer">
                 <DrawTitle polygon={polygon} step={step} />
+                <DrawGraph polygon={polygon} step={step} />
             </div>
         );
     }
