@@ -1,0 +1,3 @@
+export const DRAW_INIT_LOADED = 'DRAW_INIT_LOADED';
+export const STEP_NAVIGATED = 'STEP_NAVIGATED';
+
