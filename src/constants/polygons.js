@@ -50,12 +50,12 @@ export const POLYGONS = [
                         id: '17-gon-A',
                         type: TYPE_POINT,
                         name: 'A',
-                        at: [0, 18]
+                        at: [0, 900]
                     }
                 ]
             },
             {
-                name: 'Find B and C',
+                name: 'Find B',
                 subSteps: [
                     {
                         id: '17-gon-V',
@@ -80,7 +80,12 @@ export const POLYGONS = [
                         type: TYPE_POINT,
                         name: 'B',
                         at: [0, 225]
-                    },
+                    }
+                ]
+            },
+            {
+                name: 'Find C',
+                subSteps: [
                     {
                         id: '17-gon-bisect-OBV',
                         type: TYPE_BISECT,
@@ -100,6 +105,35 @@ export const POLYGONS = [
                         type: TYPE_POINT,
                         name: 'C',
                         at: [77.4339, 0]
+                    }
+                ]
+            },
+            {
+                name: 'Find D',
+                subSteps: [
+                    {
+                        id: '17-gon-cb-right',
+                        type: TYPE_ANGLE_RIGHT,
+                        centre: [0, 225],
+                        radius: 250,
+                        start: Math.atan2(1, 0.25) / 4 - Math.PI / 2,
+                        direction: -1
+                    },
+                    {
+                        id: '17-gon-bisect-for-D',
+                        type: TYPE_BISECT,
+                        pointA: [77.4339, 0],
+                        pointB: [0, 225],
+                        pointC: [
+                            250 * Math.cos(Math.atan2(1, 0.25) / 4 - Math.PI),
+                            225 + 250 * Math.sin(Math.atan2(1, 0.25) / 4 - Math.PI)
+                        ]
+                    },
+                    {
+                        id: '17-gon-D',
+                        type: TYPE_POINT,
+                        name: 'D',
+                        at: [-109.784, 0]
                     }
                 ]
             }

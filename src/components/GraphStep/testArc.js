@@ -1,4 +1,4 @@
-export function genTestArc(centreX, centreY, radius, start, testArcSweep = 0.3) {
+export function genTestArc(centreX, centreY, radius, start, testArcSweep = 0.15) {
     const startX = centreX + radius * Math.cos(start - testArcSweep);
     const startY = centreY + radius * Math.sin(start - testArcSweep);
 
