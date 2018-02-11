@@ -10,7 +10,7 @@ import GraphStepAngleRight from './angleRight';
 import GraphStepDivideLine from './divideLine';
 import GraphStepBisect from './bisect';
 
-export default function GraphStep({ current, stepIndex, type, ...step }) {
+export default function GraphStep({ currentStep, currentSubStep, stepIndex, type, ...step }) {
     const lineProps = {
         stroke: '#666',
         fill: 'none',
@@ -35,10 +35,14 @@ export default function GraphStep({ current, stepIndex, type, ...step }) {
         return <GraphStepCircle {...step} lineProps={lineProps} />;
     }
 
+    if (!currentStep) {
+        return null;
+    }
+
     if (type === TYPE_ANGLE_RIGHT) {
         return (
             <GraphStepAngleRight
-                current={current}
+                current={currentSubStep}
                 stepIndex={stepIndex}
                 lineProps={linePropsSketch}
                 {...step}
@@ -49,7 +53,7 @@ export default function GraphStep({ current, stepIndex, type, ...step }) {
     if (type === TYPE_DIVIDE_LINE) {
         return (
             <GraphStepDivideLine
-                current={current}
+                current={currentSubStep}
                 stepIndex={stepIndex}
                 lineProps={linePropsSketch}
                 {...step}
@@ -60,7 +64,7 @@ export default function GraphStep({ current, stepIndex, type, ...step }) {
     if (type === TYPE_BISECT) {
         return (
             <GraphStepBisect
-                current={current}
+                current={currentSubStep}
                 stepIndex={stepIndex}
                 lineProps={linePropsSketch}
                 {...step}
@@ -73,7 +77,8 @@ export default function GraphStep({ current, stepIndex, type, ...step }) {
 
 GraphStep.propTypes = {
     type: PropTypes.string.isRequired,
-    current: PropTypes.bool.isRequired,
-    stepIndex: PropTypes.number.isRequired
+    currentStep: PropTypes.bool.isRequired,
+    currentSubStep: PropTypes.bool.isRequired,
+    stepIndex: PropTypes.number
 };
 

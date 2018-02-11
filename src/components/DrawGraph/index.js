@@ -131,17 +131,26 @@ export default class DrawGraph extends Component {
         const renderedSteps = polygon.steps
             .slice(0, step)
             .reduce((steps, { subSteps }) => ([...steps, ...subSteps]), [])
-            .concat(polygon.steps[step].subSteps
-                .slice(0, this.state.currentSubStep + 1)
-            )
             .map(({ id, ...item }) => (
                 <GraphStep
                     key={id}
-                    current={this.state.currentStepId === id}
-                    stepIndex={this.state.subStepIndex}
+                    currentStep={false}
+                    currentSubStep={false}
                     {...item}
                 />
-            ));
+            ))
+            .concat(polygon.steps[step].subSteps
+                .slice(0, this.state.currentSubStep + 1)
+                .map(({ id, ...item }) => (
+                    <GraphStep
+                        key={id}
+                        currentStep={true}
+                        currentSubStep={this.state.currentStepId === id}
+                        stepIndex={this.state.subStepIndex}
+                        {...item}
+                    />
+                ))
+            );
 
         const onStartAnimation = () => this.animate(true);
 
