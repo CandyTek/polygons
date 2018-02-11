@@ -1,3 +1,6 @@
+export const GRAPH_WIDTH = 500;
+export const GRAPH_HEIGHT = 500;
+
 export const TYPE_LINE = 'TYPE_LINE';
 
 export const POLYGONS = [

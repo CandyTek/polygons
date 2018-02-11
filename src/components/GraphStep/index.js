@@ -6,7 +6,7 @@ import GraphStepLine from './line';
 export default function GraphStep({ type, ...step }) {
     const lineProps = {
         stroke: 'black',
-        lineWidth: 1
+        strokeWidth: 1
     };
 
     if (type === TYPE_LINE) {

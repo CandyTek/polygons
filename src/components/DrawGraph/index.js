@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GraphStep from '../GraphStep';
+import { GRAPH_WIDTH, GRAPH_HEIGHT } from '../../constants/polygons';
 
 export default function DrawGraph({ polygon, step }) {
     const renderedSteps = polygon.steps
@@ -11,7 +12,7 @@ export default function DrawGraph({ polygon, step }) {
         ));
 
     return (
-        <svg>
+        <svg width={GRAPH_WIDTH} height={GRAPH_HEIGHT}>
             {renderedSteps}
         </svg>
     );
