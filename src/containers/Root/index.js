@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import App from '../../components/App';
+import App from '../App';
 
 export default function Root({ store }) {
     return <Provider store={store}>

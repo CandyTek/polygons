@@ -2,8 +2,9 @@
  * The initial application state is set here
  */
 
+/* global APP_VERSION */
+
 export default {
-    message: 'Hello. Click the button!',
-    inputValue: 'Write something here'
+    appVersion: APP_VERSION || '0.0.0'
 };
 
