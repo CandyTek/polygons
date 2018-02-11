@@ -1,26 +1,63 @@
-import * as polygons from '../constants/polygons';
+import * as graph from '../constants/graph';
+import { POLYGONS } from '../constants/polygons';
 
-const graphMaxXRange = 20;
-const graphMaxYRange = graphMaxXRange * polygons.GRAPH_HEIGHT / polygons.GRAPH_WIDTH;
+const graphMaxXRange = 1000;
+const graphMaxYRange = graphMaxXRange * graph.GRAPH_HEIGHT / graph.GRAPH_WIDTH;
 
 function translatePoint(point) {
     const [x1, y1] = point;
 
     // assume that the origin is in the middle
 
-    const x2 = polygons.GRAPH_WIDTH * 0.5 * (1 + x1 / graphMaxXRange);
-    const y2 = polygons.GRAPH_HEIGHT * 0.5 * (1 - y1 / graphMaxYRange);
+    const x2 = graph.GRAPH_WIDTH * 0.5 * (1 + x1 / graphMaxXRange);
+    const y2 = graph.GRAPH_HEIGHT * 0.5 * (1 - y1 / graphMaxYRange);
 
     return [x2, y2].map(value => Math.floor(value) + 0.5);
 }
 
+function translateDistance(distance) {
+    return distance * graph.GRAPH_WIDTH / 2 / graphMaxXRange;
+}
+
 function translateCoords(subSteps) {
     return subSteps.map(step => {
-        if (step.type === polygons.TYPE_LINE) {
+        if (step.type === graph.TYPE_LINE || step.type === graph.TYPE_DIVIDE_LINE) {
             return {
                 ...step,
                 from: translatePoint(step.from),
                 to: translatePoint(step.to)
+            };
+        }
+
+        if (step.type === graph.TYPE_POINT) {
+            return {
+                ...step,
+                at: translatePoint(step.at)
+            };
+        }
+
+        if (step.type === graph.TYPE_TEST_ARC) {
+            return {
+                ...step,
+                centre: translatePoint(step.centre),
+                radius: translateDistance(step.radius)
+            };
+        }
+
+        if (step.type === graph.TYPE_ANGLE_RIGHT || step.type === graph.TYPE_CIRCLE) {
+            return {
+                ...step,
+                centre: translatePoint(step.centre),
+                radius: translateDistance(step.radius)
+            };
+        }
+
+        if (step.type === graph.TYPE_BISECT) {
+            return {
+                ...step,
+                pointA: translatePoint(step.pointA),
+                pointB: translatePoint(step.pointB),
+                pointC: translatePoint(step.pointC)
             };
         }
 
@@ -51,13 +88,11 @@ export function onInitDraw(state, { match }) {
         return resetState;
     }
 
-    const { params: { polygon: polygonName, step: stepRaw } } = match;
+    const { params: { polygon: polygonName } } = match;
 
-    const step = Number(stepRaw) || 0;
+    const polygonDef = POLYGONS.find(({ name }) => name === polygonName);
 
-    const polygonDef = polygons.POLYGONS.find(({ name }) => name === polygonName);
-
-    if (!(polygonDef && step >= 0 && step < polygonDef.steps.length)) {
+    if (!polygonDef) {
         return resetState;
     }
 
@@ -66,7 +101,21 @@ export function onInitDraw(state, { match }) {
     return ({
         ...state,
         polygon,
-        step
+        step: 0
     });
+}
+
+export function onStepNavigated(state, { direction }) {
+    if (state.step === null || !(state.polygon &&
+        state.polygon.steps.length > state.step + direction &&
+        state.step + direction >= 0)
+    ) {
+        return state;
+    }
+
+    return {
+        ...state,
+        step: state.step + direction
+    };
 }
 

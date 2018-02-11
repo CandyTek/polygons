@@ -12,7 +12,8 @@ const createReducerObject = array => array.reduce((last, item) => ({
 }), {});
 
 const reducers = createReducerObject([
-    [actions.DRAW_INIT_LOADED, app.onInitDraw]
+    [actions.DRAW_INIT_LOADED, app.onInitDraw],
+    [actions.STEP_NAVIGATED, app.onStepNavigated]
 ]);
 
 export default createReducer(initialState, reducers);

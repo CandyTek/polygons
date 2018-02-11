@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { drawInitLoaded } from '../../actions/app.actions';
+import { drawInitLoaded, stepNavigated } from '../../actions/app.actions';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DrawTitle from '../../components/DrawTitle';
@@ -18,7 +18,8 @@ class DrawOuter extends Component {
 
         return (
             <div className="draw-outer">
-                <DrawTitle polygon={polygon} step={step} />
+                <DrawTitle polygon={polygon} step={step}
+                    onStepNavigation={this.props.onStepNavigation} />
                 <DrawGraph polygon={polygon} step={step} />
             </div>
         );
@@ -34,7 +35,8 @@ DrawOuter.propTypes = {
     }).isRequired,
     polygon: PropTypes.object,
     step: PropTypes.number,
-    onInitDraw: PropTypes.func.isRequired
+    onInitDraw: PropTypes.func.isRequired,
+    onStepNavigation: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -43,7 +45,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onInitDraw: match => dispatch(drawInitLoaded(match))
+    onInitDraw: match => dispatch(drawInitLoaded(match)),
+    onStepNavigation: direction => () => dispatch(stepNavigated(direction))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawOuter);
