@@ -30,7 +30,7 @@ DrawOuter.propTypes = {
             step: PropTypes.string
         })
     }).isRequired,
-    polygon: PropTypes.string,
+    polygon: PropTypes.object,
     step: PropTypes.number,
     onInitDraw: PropTypes.func.isRequired
 };

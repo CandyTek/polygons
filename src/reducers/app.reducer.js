@@ -1,19 +1,27 @@
 import { POLYGONS } from '../constants/polygons';
 
 export function onInitDraw(state, { match }) {
-    if (!(typeof match === 'object' && typeof match.params === 'object' &&
-        'polygon' in match.params && match.params.polygon in POLYGONS)) {
+    const resetState = ({
+        ...state,
+        polygon: null,
+        step: null
+    });
 
-        return ({
-            ...state,
-            polygon: null,
-            step: null
-        });
+    if (!(typeof match === 'object' &&
+        typeof match.params === 'object' && 'polygon' in match.params)) {
+
+        return resetState;
     }
 
-    const { params: { polygon, step: stepRaw } } = match;
+    const { params: { polygon: polygonName, step: stepRaw } } = match;
 
     const step = Number(stepRaw) || 0;
+
+    const polygon = POLYGONS.find(({ name }) => name === polygonName);
+
+    if (!(polygon && step >= 0 && step < polygon.steps.length)) {
+        return resetState;
+    }
 
     return ({
         ...state,
