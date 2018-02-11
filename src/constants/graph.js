@@ -9,7 +9,7 @@ export const TYPE_DIVIDE_LINE = 'TYPE_DIVIDE_LINE';
 export const TYPE_BISECT = 'TYPE_BISECT';
 
 export const ANIM_STEPS = {
-    [TYPE_ANGLE_RIGHT]: 7,
+    [TYPE_ANGLE_RIGHT]: 9,
     [TYPE_DIVIDE_LINE]: 5,
     [TYPE_BISECT]: 7
 };

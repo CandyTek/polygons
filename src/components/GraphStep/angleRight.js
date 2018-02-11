@@ -1,41 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { genTestArc } from './testArc';
+import GraphStepLine from './line';
 
 export default function GraphStepAngleRight(props) {
     const { current, stepIndex, centre, radius, start, direction, lineProps } = props;
 
     const [centreX, centreY] = centre;
 
+    const angle1 = -start - direction * Math.PI / 3;
+    const angle2 = angle1 - direction * Math.PI / 3;
+
+    const pointStart = [
+        centreX + radius * Math.cos(-start),
+        centreY + radius * Math.sin(-start)
+    ];
+
     const pointRight = [
-        centreX + radius * Math.cos(direction * Math.PI / 3),
-        centreY - radius * Math.sin(direction * Math.PI / 3)
+        centreX + radius * Math.cos(angle1),
+        centreY + radius * Math.sin(angle1)
     ];
 
     const pointLeft = [
-        centreX + radius * Math.cos(direction * 2 * Math.PI / 3),
-        centreY - radius * Math.sin(direction * 2 * Math.PI / 3)
+        centreX + radius * Math.cos(angle2),
+        centreY + radius * Math.sin(angle2)
     ];
 
-    let testArcs = [
-        genTestArc(centreX, centreY, radius, start),
-        genTestArc(centreX, centreY, radius, start - direction * Math.PI / 3),
-        genTestArc(centreX + radius, centreY, radius, start - direction * 2 * Math.PI / 3),
-        genTestArc(...pointRight, radius, Math.PI),
-        genTestArc(centreX, centreY, radius, start - direction * 2 * Math.PI / 3),
-        genTestArc(...pointLeft, radius, -direction * Math.PI / 3),
-        genTestArc(...pointRight, radius, -direction * 2 * Math.PI / 3)
+    const pointEnd = [
+        pointLeft[0] + radius * Math.cos(-start - direction * Math.PI / 3),
+        pointLeft[1] + radius * Math.sin(-start - direction * Math.PI / 3)
     ];
 
-    if (current) {
-        testArcs = testArcs.slice(0, stepIndex + 1);
-    }
+    const testArcs = [
+        genTestArc(...centre, radius, -start),
+        genTestArc(...centre, radius, angle1),
+        genTestArc(...pointStart, radius, angle2),
+        genTestArc(...pointRight, radius, direction * Math.PI - start),
+        genTestArc(...centre, radius, angle2),
+        genTestArc(...pointLeft, radius, -start - direction * Math.PI / 3),
+        genTestArc(...pointRight, radius, direction * Math.PI * 4 / 3 - start)
+    ];
 
-    const paths = testArcs.map((arc, key) => <path key={key} d={arc} {...lineProps} />);
+    const arcPaths = testArcs.map((arc, key) => <path key={key} d={arc} {...lineProps} />);
+
+    const line1 = <GraphStepLine key="linestart" from={centre} to={pointStart} lineProps={lineProps} />;
+
+    const line2 = <GraphStepLine key="angleline" from={pointEnd} to={centre} lineProps={lineProps} />;
+
+    const paths = [line1, ...arcPaths, line2];
+
+    const pathsVisible = current
+        ? paths.slice(0, stepIndex)
+        : paths;
 
     return (
         <g>
-            {paths}
+            {pathsVisible}
         </g>
     );
 }
