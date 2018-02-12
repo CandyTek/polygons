@@ -90,13 +90,11 @@ export function onInitDraw(state, { match }) {
 
     const { params: { polygon: polygonName } } = match;
 
-    const polygonDef = POLYGONS.find(({ name }) => name === polygonName);
-
-    if (!polygonDef) {
+    if (!(polygonName in POLYGONS)) {
         return resetState;
     }
 
-    const polygon = processPolygon(polygonDef());
+    const polygon = processPolygon(POLYGONS[polygonName]());
 
     return ({
         ...state,
