@@ -1,6 +1,6 @@
 {
   "name": "polygons",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Draw polygons using a ruler and straight edge",
   "main": "index.js",
   "engines": {

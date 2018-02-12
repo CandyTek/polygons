@@ -96,7 +96,7 @@ export function onInitDraw(state, { match }) {
         return resetState;
     }
 
-    const polygon = processPolygon(polygonDef);
+    const polygon = processPolygon(polygonDef());
 
     return ({
         ...state,
