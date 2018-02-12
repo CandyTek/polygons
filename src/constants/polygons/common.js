@@ -1,4 +1,4 @@
-import { TYPE_LINE, TYPE_POINT, TYPE_CIRCLE, TYPE_ANGLE_RIGHT } from '../graph';
+import { TYPE_LINE, TYPE_POINT, TYPE_CIRCLE, TYPE_ANGLE_RIGHT, TYPE_TEST_ARC } from '../graph';
 
 export const stepXAxisAndCircle = {
     name: 'X Axis and Circle',
@@ -50,6 +50,30 @@ export const stepYAxis = {
         }
     ]
 };
+
+const getAngleToNextVertex = (totalSides, index) =>
+    Math.PI * (0.5 + 1 / totalSides * (2 * index + 1));
+
+export const genStepVertices = (totalSides, from, numSides, vertices, sideLength) =>
+    new Array(numSides * 2).fill(0)
+        .reduce((items, item, index) => ([
+            ...items,
+            {
+                id: `_autogen_${totalSides}-gon-arc-v${index + 1 + from}`,
+                type: TYPE_TEST_ARC,
+                sketch: true,
+                centre: vertices[(index + from) % totalSides],
+                radius: sideLength,
+                start: getAngleToNextVertex(totalSides, from + index)
+            },
+            {
+                id: `_autogen_${totalSides}-gon-line-v${index + 1 + from}`,
+                type: TYPE_LINE,
+                final: true,
+                from: vertices[(index + from) % totalSides],
+                to: vertices[(index + 1 + from) % totalSides]
+            }
+        ]), []);
 
 export const genPolygonParams = (numSides, radius = 900) => ({
     vertices: new Array(numSides).fill(0)

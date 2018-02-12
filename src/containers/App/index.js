@@ -15,7 +15,7 @@ function App({ appVersion }) {
             <Header />
             <Switch>
                 <Route path="/" exact component={PolygonChooser} />
-                <Route path="/:polygon(heptadecagon)" component={DrawOuter} />
+                <Route path="/:polygon(pentagon|heptadecagon)" component={DrawOuter} />
                 <Redirect to="/" />
             </Switch>
         </div>
