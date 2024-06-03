@@ -2,11 +2,13 @@
 
 Draw polygons using a ruler and straight edge
 
-![msedge_C58e2veAnF](https://github.com/CandyTek/polygons/assets/39211450/dcf4d0bd-b11f-4c61-b56f-729f461d6d7c)
-
 <br>
 
----
+|Sample|
+|:---:|
+|<img src="https://github.com/CandyTek/polygons/assets/39211450/dcf4d0bd-b11f-4c61-b56f-729f461d6d7c" width="500">|
+
+<br>
 
 ## Run
 
