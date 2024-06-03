@@ -4,10 +4,10 @@
   "description": "Draw polygons using a ruler and straight edge",
   "main": "index.js",
   "engines": {
-    "node": "=8"
+    "node": "=12"
   },
   "scripts": {
-    "postinstall": "NODE_ENV=production ./node_modules/.bin/webpack",
+    "postinstall": "cross-env NODE_ENV=production .\\node_modules\\.bin\\webpack",
     "start": "node index.js",
     "dev": "NODE_ENV=development node index.js",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --require babel-core/register \"test/**/*.spec.js\"",
@@ -58,7 +58,7 @@
             "env",
             {
               "targets": {
-                "node": "8"
+                "node": "12"
               }
             }
           ],
